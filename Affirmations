@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affirmations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Unicase:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300..700;1,300..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<style>
+  body {
+  display: flex;
+  justify-content: top;
+  align-items: center;
+  flex-direction: column;
+}
+
+.full-table {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.card {
+  padding: 10px 25px 10px 25px;
+  border-radius: 10px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("https://images.unsplash.com/photo-1628498188873-579210ce622e?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+    no-repeat center;
+  background-size: cover;
+  color: #fff;
+  display: inline-block;
+  width: 600px;
+  min-height: 200px;
+}
+
+#quotation {
+  font-family: "Cormorant Unicase", serif;
+  font-size: 2rem;
+  line-height: 1.2;
+  background-color: rgb(255,255,255,0.3);
+  padding: 5px 25px;
+  border-radius: 15px;
+  hanging-punctuation: first;
+}
+
+button {
+  font-family: "Cormorant Unicase", serif;
+  display: block;
+  padding: 0.5rem;
+  outline: none;
+  font-size: 0.8rem;
+  color: #fff;
+  background: none;
+  border: 0px;
+  border-top: 1px solid rgb(255,255,255,0.8);
+  cursor: pointer;
+  float: right;
+}
+	
+    /* Media Queries */
+    @media (max-width: 600px) {
+        .card {
+            width: 90%;
+        }
+
+        #quotation {
+            font-size: 1.5rem;
+            padding: 5px 20px;
+        }
+
+        button {
+            font-size: 0.7rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .card {
+            width: 95%;
+        }
+
+        #quotation {
+            font-size: 1.2rem;
+            padding: 5px 15px;
+        }
+
+        button {
+            font-size: 0.6rem;
+        }	
+
+</style>
+</head>
+<body>
+  <div class="full-table">
+  <div class="table-cell">
+    
+    <div class="card">
+<blockquote>
+  <p id="quotation"></p>
+</blockquote>
+<button>New Affirmation</button>
+     </div>
+    </div>
+    </div>
+  </body>
+  <script>
+    const quotes = [
+	{ 
+		"quote" : "I am a magnet for all that is good in this universe" 
+	},
+	{
+		"quote" : "What I think, I create; what I feel, I attract; what I imagine, I become"
+	},
+	{
+		"quote" : "I embrace the present moment, knowing it is all I truly have"
+	},
+	{
+		"quote" : "As a human soul, I am a product of perfect harmony and possibility"
+	},
+	{
+		"quote" : "I am a powerful creator and I have the world at my fingertips"
+	},
+	{
+		"quote" : "I belong to the Earth and she will protect me"
+	},
+	{
+		"quote" : "Everything in the Universe is within you. Ask all from yourself"
+	},
+	{
+		"quote" : "I am in charge of my own energy. I choose how I feel in every moment"
+	},
+  {
+		"quote" : "I am safe and supported, rooted in this present moment"
+	},
+  {
+		"quote" : "I have the power to create the life I want"
+	},
+{
+		"quote" : "I don't wait for opportunities, I create them"
+	},
+{
+		"quote" : "I'm always at the right place at the right time"
+	},
+  {
+		"quote" : "I surround myself with people who make me better"
+	},
+  {
+		"quote" : "Great things are coming my way"
+	},
+  {
+		"quote" : "I am grateful for the things I have and continue to receive"
+	},
+    {
+		"quote" : "Every day I am becoming a better version of myself"
+	},
+  {
+		"quote" : "When we're lost, magick calls us home"
+	},
+  {
+		"quote" : "I manifest desires quickly and effortlessly"
+	},
+  {
+		"quote" : "I am following my path. It is right for me"
+	},
+    {
+		"quote" : "My path is filled with knowledge, love, and prosperity"
+	},
+    {
+		"quote" : "My ancestors guide me"
+	},
+    {
+		"quote" : "Everything I do, I do with intent"
+	},
+  {
+		"quote" : "I heal myself and others"
+	},
+]
+
+function randomQuote() {
+  let random = quotes[Math.floor(Math.random() * quotes.length)];
+  quotation.innerText = `“${random.quote}.”`;
+}
+
+randomQuote();
+
+document.querySelector("button").addEventListener('click', randomQuote)
+  </script>
+</html>
