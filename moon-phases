@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Phase Widget</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Unicase:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300..700;1,300..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <style>
+      
+        /*CSS RESETS*/
+
+body{
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+
+/*CSS START*/
+
+.full-table {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    <div class="full-table">
+  <div class="table-cell">
+   <a target="blank"
+	style="text-decoration:none;"
+	href="https://moonphase.guide/">
+		<img src="https://moonphase.guide/module/MREFVd3kwaFRkcUpJR0oxclNyTTJmWE1TSm1iRlBWTEpoZFpUbHdQeDB5NmZaQVpWSDhqM05lcEU4K2xzazRMOVlxbGl4WUVZazJoYVFKelp0T2c5bkE9PQ.png" />
+ </a>
+      </div>
+    </div>
+</body>
+</html>
