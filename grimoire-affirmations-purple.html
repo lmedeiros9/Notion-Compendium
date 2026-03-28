@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grimoire — Daily Affirmations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #0d0412;
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(80, 20, 120, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(40, 10, 70, 0.3) 0%, transparent 60%);
+      font-family: 'Cormorant', serif;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      min-height: 280px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(180, 120, 220, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2rem 2.25rem 1.25rem;
+    }
+
+    .card-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(25, 6, 45, 0.88), rgba(55, 10, 75, 0.80)),
+        url("https://images.unsplash.com/photo-1628498188873-579210ce622e?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3") no-repeat center center;
+      background-size: cover;
+      z-index: 0;
+    }
+
+    .card > * { position: relative; z-index: 1; }
+
+    .sigil {
+      text-align: center;
+      color: rgba(200, 155, 240, 0.6);
+      letter-spacing: 0.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .quote-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(70, 15, 110, 0.28);
+      border: 0.5px solid rgba(180, 110, 240, 0.22);
+      border-radius: 12px;
+      padding: 1.1rem 1.5rem;
+      min-height: 120px;
+      margin-bottom: 1.25rem;
+      transition: opacity 0.4s ease;
+    }
+
+    .quote-wrap.fade { opacity: 0; }
+
+    blockquote {
+      font-family: 'Cormorant Unicase', serif;
+      font-size: 1.45rem;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #f2eaff;
+      text-align: center;
+      hanging-punctuation: first;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 0.5px solid rgba(180, 110, 240, 0.28);
+      padding-top: 0.75rem;
+    }
+
+    .tag {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 0.72rem;
+      letter-spacing: 0.07rem;
+      color: rgba(190, 140, 250, 0.55);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .counter {
+      font-family: 'Cormorant', serif;
+      font-size: 0.65rem;
+      color: rgba(180, 130, 240, 0.38);
+      letter-spacing: 0.05rem;
+    }
+
+    button {
+      font-family: 'Cormorant Unicase', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14rem;
+      text-transform: uppercase;
+      color: rgba(215, 175, 255, 0.82);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s ease, letter-spacing 0.2s ease;
+    }
+
+    button:hover {
+      color: #f2eaff;
+      letter-spacing: 0.2rem;
+    }
+
+    @media (max-width: 520px) {
+      .card { padding: 1.5rem 1.25rem 1rem; }
+      blockquote { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-bg"></div>
+    <div class="sigil">✦ ☽ ✦ ☾ ✦</div>
+    <div class="quote-wrap" id="quote-wrap">
+      <blockquote id="quotation"></blockquote>
+    </div>
+    <div class="card-footer">
+      <span class="tag" id="tag"></span>
+      <div class="footer-right">
+        <span class="counter" id="counter"></span>
+        <button id="btn">✦ Summon Another ✦</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const affirmations = [
+      {text:"I have eaten the pomegranate seeds. I chose this. I am not lost — I am sovereign.",tag:"persephone"},
+      {text:"The shadows know my name and part when I walk through them.",tag:"sovereignty"},
+      {text:"I am the threshold. Nothing crosses without my blessing.",tag:"sovereignty"},
+      {text:"My power is not a gift — it was always mine. I only forgot.",tag:"sovereignty"},
+      {text:"I descend by choice and rise by will. That is what it means to be Queen.",tag:"persephone"},
+      {text:"The dark does not swallow me. I am the dark, and I bloom anyway.",tag:"persephone"},
+      {text:"I carry the fire of Brigid — forge and hearth, destruction and becoming.",tag:"brigid"},
+      {text:"Every ending I have survived was a door. I have an excellent record of walking through.",tag:"resilience"},
+      {text:"My ancestors built roads through harder darkness. I know the way.",tag:"ancestry"},
+      {text:"I am fluent in shadow and starlight. I move between worlds without apology.",tag:"sovereignty"},
+      {text:"What I release at the new moon does not return without my invitation.",tag:"lunar"},
+      {text:"I am rooted deep enough that the storm only dances me, never breaks me.",tag:"resilience"},
+      {text:"Freya does not ask permission to love what she loves fiercely. Neither do I.",tag:"freya"},
+      {text:"The bones of what I've buried make the richest soil. Watch what grows here.",tag:"persephone"},
+      {text:"I am made of salt water and old magic and I am very hard to wash away.",tag:"sovereignty"},
+      {text:"I do not shrink to fit a room. I expand until the room is worthy of me.",tag:"sovereignty"},
+      {text:"My intuition is not a whisper. It is a roar I have learned to trust.",tag:"sovereignty"},
+      {text:"I was never meant to be palatable. I was meant to be powerful.",tag:"sovereignty"},
+      {text:"Eu protejo o que é meu — and what is mine is vast.",tag:"freya"},
+      {text:"I am the kind of woman that storms have names for.",tag:"chaos witch"},
+      {text:"The moon does not dim herself for daylight. I take notes.",tag:"lunar"},
+      {text:"What blooms in me does not need the sun's permission.",tag:"persephone"},
+      {text:"I craft my life with the same intention I set an altar — everything placed with meaning.",tag:"craft"},
+      {text:"The underworld was never my punishment. It was my coronation.",tag:"persephone"},
+      {text:"I do not perform softness. When I am gentle, it is chosen. It is power.",tag:"sovereignty"},
+      {text:"My transformation is not a crisis. It is a ritual, and I know exactly what I'm doing.",tag:"craft"},
+      {text:"I am not between things. I am at the threshold, and the threshold is sacred.",tag:"persephone"},
+      {text:"I will not shrink myself to make others comfortable. I will, however, dim the lights and let them wonder what I am.",tag:"chaos witch"},
+      {text:"Today's intention: unbothered. Tomorrow's intention: untouchable. Next week: unknowable to all who have wronged me.",tag:"chaos witch"},
+      {text:"I am manifesting a version of myself that doesn't explain her decisions to anyone. Only her terms.",tag:"chaos witch"},
+      {text:"My villain era is not a phase. It is a promotion.",tag:"chaos witch"},
+      {text:"I don't need closure. I need a ritual, three witnesses, and a Tuesday with good moon energy.",tag:"chaos witch"},
+      {text:"Work smarter, not harder. Curse strategically, not impulsively. Know the difference.",tag:"chaos witch"},
+      {text:"Don't be too hard on yourself about your weaknesses. Dracula can't even go outside during the day and he's still the immortal prince of darkness.",tag:"chaos witch"},
+      {text:"Emerge without warning from the gaping maw of a flaming hell portal. Let your tentacles stretch across the charred landscape. Drink the ocean. Decimate a city with your horrifying shriek alone. You can do big things.",tag:"chaos witch"},
+      {text:"I am not giving that situation any more of my energy. I already gave it a footnote in my Book of Shadows and that is all it deserves.",tag:"chaos witch"},
+      {text:"She is not intimidating. She is simply operating at a frequency you haven't attuned to yet. Touch grass and try again.",tag:"chaos witch"},
+      {text:"Boundaries are not walls. They are velvet ropes. I decide who's on the list.",tag:"chaos witch"},
+      {text:"I release what no longer serves me — with love, with intention, and occasionally with a very specific jar spell.",tag:"chaos witch"},
+      {text:"My healing is not linear. It is spiral. I have lapped this lesson three times and each time I am more terrifying.",tag:"chaos witch"},
+      {text:"I am not for everyone. I am, however, exactly right for the people who matter. The others were never on the invite list.",tag:"chaos witch"},
+      {text:"The audacity it would take for me to doubt myself at this point in the timeline. Noted. Dismissed. Banished.",tag:"chaos witch"},
+      {text:"I contain multitudes. Several of them bite.",tag:"chaos witch"},
+      {text:"I don't chase. I cast. There is a difference and it shows.",tag:"chaos witch"},
+      {text:"I am not a phase of the moon you get to skip over. I am the whole cycle.",tag:"lunar"},
+      {text:"My soft life and my feral power are not in conflict. They are the same throne.",tag:"sovereignty"},
+      {text:"I have been underestimated by people with far more confidence and far less data than me. They were wrong. On record.",tag:"chaos witch"},
+      {text:"I do not spiral. I descend with intention and I come back with something useful.",tag:"persephone"},
+      {text:"My rest is not laziness. It is the cauldron refilling. Do not interrupt the cauldron.",tag:"chaos witch"},
+      {text:"I am not explaining the vision. I am executing it. You'll understand when it's done.",tag:"chaos witch"},
+      {text:"I have Brigid's fire in my hands and Freya's war-cry in my chest and Persephone's patience for the long game. I am not to be rushed.",tag:"ancestry"},
+      {text:"The right people find me because I stopped hiding myself to accommodate the wrong ones.",tag:"sovereignty"},
+      {text:"I am not recovering from my past. I am composting it. There is a difference and it smells like petrichor and possibility.",tag:"persephone"},
+      {text:"My standards are not too high. Everyone else just forgot what high looks like.",tag:"chaos witch"},
+      {text:"I am suspicious of urgency that benefits someone else and conveniently costs me.",tag:"chaos witch"},
+      {text:"Every version of me that didn't make it still got me here. I honor her. I also outgrew her. Both things.",tag:"resilience"},
+      {text:"I am not difficult. I am specific. Learn the difference before you schedule that meeting.",tag:"chaos witch"},
+      {text:"The stars that went supernova became the iron in your blood. Collapse, if you must. You already know what comes after.",tag:"resilience"},
+      {text:"I do not need to be understood by everyone. The ocean does not explain herself to the shore.",tag:"sovereignty"},
+      {text:"I am choosing the version of this story where I win. The other drafts have been burned ceremonially.",tag:"craft"},
+      {text:"My peace is not up for negotiation. It is not even on the agenda. The agenda is not being shared.",tag:"chaos witch"},
+      {text:"I have ancestors who survived things that would floor you. Their blood runs in me. Act accordingly.",tag:"ancestry"},
+      {text:"Forgiveness is for me. The jar spell is also for me. These are not contradictions.",tag:"chaos witch"},
+      {text:"I am not waiting for permission. Persephone didn't ask Hades if it was okay to become Queen.",tag:"persephone"},
+      {text:"Good things are drawn to me because I finally stopped apologizing for taking up space.",tag:"sovereignty"},
+      {text:"I tend to my own flame first. Everything else is lit from there.",tag:"brigid"},
+      {text:"I have walked through fire and come out the other side smelling faintly of smoke and very much alive.",tag:"brigid"},
+      {text:"My no is complete. It does not require a paragraph, a reason, or your understanding.",tag:"sovereignty"},
+      {text:"I am at my most powerful when I am exactly, unapologetically, ferociously myself.",tag:"freya"},
+    ];
+
+    let current = -1;
+
+    function getNext() {
+      let next;
+      do { next = Math.floor(Math.random() * affirmations.length); } while (next === current && affirmations.length > 1);
+      current = next;
+      return affirmations[next];
+    }
+
+    const wrap = document.getElementById('quote-wrap');
+    const el = document.getElementById('quotation');
+    const tagEl = document.getElementById('tag');
+    const counterEl = document.getElementById('counter');
+    const btn = document.getElementById('btn');
+
+    function show() {
+      wrap.classList.add('fade');
+      setTimeout(() => {
+        const a = getNext();
+        el.textContent = `"${a.text}"`;
+        tagEl.textContent = `✦ ${a.tag}`;
+        counterEl.textContent = `${current + 1} / ${affirmations.length}`;
+        wrap.classList.remove('fade');
+      }, 380);
+    }
+
+    show();
+    btn.addEventListener('click', show);
+  </script>
+</body>
+</html>
